@@ -35,10 +35,13 @@ def printSong(word, word_eol, userdata):
   elif songInfo == 1:
     xchat.prnt("Exaile is not running")
   else:
-    xchat.command("me is listening to %s by %s - %s (%s/%s)" % songInfo)
-  
+    if not userdata:
+      xchat.command("me is listening to %s by %s - %s (%s/%s)" % songInfo)
+    else:
+      xchat.command("me is listening to \x0303%s\x03 by \x0303%s\x03 - \x0303%s\x03 (\x0305%s\x03/\x0305%s\x03)" % songInfo)
   return xchat.EAT_ALL
 
 xchat.prnt("Exaile script initialized")
 xchat.prnt("Use /np to announce the currently played song")
-xchat.hook_command("np", printSong)
+xchat.hook_command("np", printSong, False)
+xchat.hook_command("npc", printSong, True)
